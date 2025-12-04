@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berwin N | AI Engineer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- VARIABLES --- */
+        :root {
+            --bg-body: #050203;
+            --bg-nav: rgba(5, 2, 3, 0.8);
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --border-glass: rgba(255, 105, 180, 0.1);
+            --text-main: #ffffff;
+            --text-muted: #d0c0c8;
+            --primary: #ff66b2;
+            --primary-glow: rgba(255, 102, 178, 0.5);
+            --gradient: linear-gradient(135deg, #ff66b2, #d10074);
+            --shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] {
+            --bg-body: #fff5f9;
+            --bg-nav: rgba(255, 255, 255, 0.85);
+            --bg-glass: rgba(255, 255, 255, 0.7);
+            --border-glass: rgba(255, 105, 180, 0.2);
+            --text-main: #2d1b24;
+            --text-muted: #664d5a;
+            --primary: #d63384;
+            --primary-glow: rgba(214, 51, 132, 0.2);
+            --gradient: linear-gradient(135deg, #ff85c0, #d63384);
+            --shadow: 0 10px 30px -10px rgba(214, 51, 132, 0.15);
+        }
+
+        /* --- RESET & BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            overflow-x: hidden;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Moving Background Effect */
+        body::before {
+            content: ''; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at center, var(--primary-glow) 0%, transparent 40%);
+            opacity: 0.15; z-index: -1; animation: moveBg 20s linear infinite;
+        }
+        @keyframes moveBg { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* --- NAVIGATION --- */
+        nav { 
+            position: sticky; top: 0; z-index: 1000; 
+            background: var(--bg-nav); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-glass); padding: 15px 0;
+        }
+        .nav-container { 
+            max-width: 1200px; margin: 0 auto; padding: 0 20px; 
+            display: flex; justify-content: space-between; align-items: center; 
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { color: var(--text-main); text-decoration: none; font-weight: 500; font-size: 0.95rem; position: relative; transition: var(--transition); }
+        .nav-links a:hover { color: var(--primary); }
+        
+        /* Mobile Menu */
+        .menu-btn { display: none; font-size: 1.5rem; color: var(--text-main); cursor: pointer; }
+
+        /* Theme Toggle */
+        .theme-btn { 
+            background: var(--bg-glass); border: 1px solid var(--border-glass); 
+            color: var(--primary); padding: 8px 12px; border-radius: 50px; cursor: pointer; transition: var(--transition);
+        }
+        .theme-btn:hover { background: var(--primary); color: white; transform: rotate(15deg); }
+
+        /* --- HERO SECTION --- */
+        .hero { 
+            min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            text-align: center; padding: 100px 20px; position: relative;
+        }
+        .profile-box {
+            position: relative; width: 200px; height: 200px; margin-bottom: 30px;
+        }
+        .profile-img { 
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover; 
+            border: 4px solid var(--bg-body); position: relative; z-index: 2;
+        }
+        .profile-ring {
+            position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px; 
+            border-radius: 50%; background: var(--gradient); z-index: 1; animation: spin 4s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 10px; font-weight: 800; }
+        .hero .typing-text { font-size: 1.5rem; color: var(--primary); margin-bottom: 20px; height: 1.5rem; }
+        .hero p { max-width: 600px; color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem; }
+
+        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+        .btn { 
+            padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; 
+            transition: var(--transition); display: flex; align-items: center; gap: 8px;
+        }
+        .btn-primary { background: var(--gradient); color: white; border: none; box-shadow: 0 4px 15px var(--primary-glow); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px var(--primary-glow); }
+        .btn-outline { background: transparent; border: 2px solid var(--border-glass); color: var(--text-main); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--bg-glass); }
+
+        /* --- SECTIONS COMMON --- */
+        section { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
+        .section-title { font-size: 2.5rem; margin-bottom: 60px; text-align: center; }
+        .section-title span { color: var(--primary); }
+
+        /* --- SKILLS GRID --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .card { 
+            background: var(--bg-glass); border: 1px solid var(--border-glass); border-radius: 20px; 
+            padding: 30px; transition: var(--transition); position: relative; overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: var(--shadow); }
+        .card h3 { color: var(--primary); margin-bottom: 20px; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+        .tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tag { 
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); 
+            padding: 5px 12px; border-radius: 15px; font-size: 0.85rem; color: var(--text-muted);
+        }
+
+        /* --- EXPERIENCE TIMELINE --- */
+        .timeline { border-left: 2px solid var(--border-glass); margin-left: 20px; padding-left: 30px; }
+        .timeline-item { position: relative; margin-bottom: 50px; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -36px; top: 5px; width: 14px; height: 14px; 
+            border-radius: 50%; background: var(--primary); box-shadow: 0 0 15px var(--primary);
+        }
+        .timeline-date { color: var(--primary); font-weight: 700; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 5px; display: block; }
+        .timeline-role { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 15px; font-style: italic; }
+        .timeline-item ul { padding-left: 20px; color: var(--text-muted); line-height: 1.7; }
+
+        /* --- PROJECTS --- */
+        .project-img { 
+            height: 180px; background: #1a0b10; border-radius: 10px; margin-bottom: 20px;
+            display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 3rem;
+            position: relative; overflow: hidden;
+        }
+        .card:hover .project-img i { transform: scale(1.2); transition: 0.5s; }
+
+        /* --- CONTACT --- */
+        .contact-box { 
+            text-align: center; background: var(--bg-glass); padding: 50px; border-radius: 30px;
+            border: 1px solid var(--border-glass); max-width: 800px; margin: 0 auto;
+        }
+
+        /* --- ANIMATIONS --- */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- MOBILE MEDIA QUERIES --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .nav-links { 
+                position: fixed; top: 70px; right: -100%; width: 100%; height: 100vh; 
+                background: var(--bg-nav); flex-direction: column; justify-content: center; 
+                transition: 0.4s; backdrop-filter: blur(20px);
+            }
+            .nav-links.active { right: 0; }
+            .menu-btn { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Berwin.AI</div>
+            <div class="nav-links" id="navLinks">
+                <a href="#about" onclick="closeMenu()">About</a>
+                <a href="#skills" onclick="closeMenu()">Skills</a>
+                <a href="#experience" onclick="closeMenu()">Experience</a>
+                <a href="#projects" onclick="closeMenu()">Projects</a>
+                <a href="#contact" onclick="closeMenu()">Contact</a>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <button class="theme-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+                <div class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="about">
+        <div class="profile-box">
+            <div class="profile-ring"></div>
+            <img src="profile.jpeg" alt="Berwin N" class="profile-img" onerror="this.style.display='none'; alert('Remember to copy profile.jpeg into this folder!');">
+        </div>
+        <h1>Hi, I'm Berwin N</h1>
+        <div class="typing-text" id="typingText"></div>
+        <p>Expert in Agentic Workflows, Computer Vision, and pure Python architectures. Building the future of autonomous systems.</p>
+        
+        <div class="btn-group">
+            <a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Hire Me</a>
+            <a href="https://github.com/BERWINBER" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://www.linkedin.com/in/berwin-n-02902b25a/" target="_blank" class="btn btn-outline"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        </div>
+    </section>
+
+    <section id="skills" class="reveal">
+        <h2 class="section-title">Technical <span>Arsenal</span></h2>
+        <div class="grid">
+            <div class="card">
+                <h3><i class="fas fa-brain"></i> Agentic AI</h3>
+                <div class="tags">
+                    <span class="tag">LangChain</span>
+                    <span class="tag">LangGraph</span>
+                    <span class="tag">CrewAI</span>
+                    <span class="tag">RAG</span>
+                    <span class="tag">PydanticAI</span>
+                    <span class="tag">Ollama</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3><i class="fas fa-code"></i> Core Languages</h3>
+                <div class="tags">
+                    <span class="tag">Python (Advanced)</span>
+                    <span class="tag">C++</span>
+                    <span class="tag">Java</span>
+                    <span class="tag">JavaScript</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3><i class="fas fa-eye"></i> Computer Vision</h3>
+                <div class="tags">
+                    <span class="tag">OpenCV</span>
+                    <span class="tag">Roboflow</span>
+                    <span class="tag">TensorFlow</span>
+                    <span class="tag">EasyOCR</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3><i class="fas fa-server"></i> Cloud & Ops</h3>
+                <div class="tags">
+                    <span class="tag">AWS</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Selenium</span>
+                    <span class="tag">Git</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="reveal">
+        <h2 class="section-title">Work <span>Experience</span></h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <span class="timeline-date">JUN 2025 - PRESENT</span>
+                <h3>ACL Digital (ALTEN Calsoft Labs)</h3>
+                <div class="timeline-role">Intern</div>
+                <ul>
+                    <li>Built <strong>RAG-based AI agents</strong> for chatbot systems, ensuring context-aware responses.</li>
+                    <li>Designed agent-driven workflows using <strong>LangGraph</strong> to connect LLMs with internal APIs.</li>
+                    <li>Automated internal processes using Python and Selenium.</li>
+                </ul>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-date">PREVIOUS</span>
+                <h3>Godel Technologies LLP</h3>
+                <div class="timeline-role">Software Development Intern</div>
+                <ul>
+                    <li>Built chatbot applications using <strong>Rasa</strong> and LLMs.</li>
+                    <li>Automated AWS infrastructure (EC2, SNS, Lambda, S3) using Python scripts.</li>
+                </ul>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-date">PREVIOUS</span>
+                <h3>AK Infopark</h3>
+                <div class="timeline-role">Data Science Intern</div>
+                <ul>
+                    <li>Built Computer Vision solutions including brain tumor detection (Roboflow) and number plate detection (EasyOCR).</li>
+                    <li>Implemented real-time ML models for image classification.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="reveal">
+        <h2 class="section-title">Featured <span>Projects</span></h2>
+        <div class="grid">
+            <div class="card">
+                <div class="project-img"><i class="fas fa-gavel"></i></div>
+                <h3>Justice Chatbot</h3>
+                <p style="color:var(--text-muted); font-size: 0.9rem;">Llama 3.1 • Twilio</p>
+                <p style="margin-top: 10px; color: var(--text-main);">Emotional support and complaint filing bot with anonymized case-sharing.</p>
+            </div>
+            <div class="card">
+                <div class="project-img"><i class="fas fa-recycle"></i></div>
+                <h3>Cleanliness Platform</h3>
+                <p style="color:var(--text-muted); font-size: 0.9rem;">CV • ML • APIs</p>
+                <p style="margin-top: 10px; color: var(--text-main);">Waste detection pipeline integrated with GPS and air quality monitoring.</p>
+            </div>
+            <div class="card">
+                <div class="project-img"><i class="fas fa-heart-pulse"></i></div>
+                <h3>Logotherapy Bot</h3>
+                <p style="color:var(--text-muted); font-size: 0.9rem;">Rasa • LLMs</p>
+                <p style="margin-top: 10px; color: var(--text-main);">Therapeutic conversational agent providing custom responses.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements" class="reveal">
+        <h2 class="section-title">Top <span>Achievements</span></h2>
+        <div class="grid">
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-trophy" style="font-size: 2rem; color: gold; margin-bottom: 15px;"></i>
+                <h3>1st Place</h3>
+                <p>Cyber Safety for Women</p>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Tamil Nadu Startup</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-medal" style="font-size: 2rem; color: silver; margin-bottom: 15px;"></i>
+                <h3>2nd Place</h3>
+                <p>Symposium Full Stack Project</p>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Rajalakshmi Engineering College</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-award" style="font-size: 2rem; color: #cd7f32; margin-bottom: 15px;"></i>
+                <h3>3rd Place</h3>
+                <p>UI Path Hack-a-Bot</p>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">BookMyShow Automation</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="reveal">
+        <div class="contact-box">
+            <h2>Ready to Collaborate?</h2>
+            <p style="margin: 20px 0 30px;">I'm currently open to new opportunities in AI & Automation.</p>
+            <a href="mailto:berwinber@gmail.com" class="btn btn-primary" style="display: inline-flex;">
+                <i class="fas fa-envelope"></i> berwinber@gmail.com
+            </a>
+            <div style="margin-top: 20px;">
+                <a href="tel:+916382914301" style="color: var(--primary); text-decoration: none;">+91 63829 14301</a>
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px; border-top: 1px solid var(--border-glass); margin-top: 50px; color: var(--text-muted);">
+        <p>&copy; 2025 Berwin N. Built with Pure Code.</p>
+    </footer>
+
+    <script>
+        // 1. Theme Toggle
+        const html = document.documentElement;
+        const themeBtn = document.querySelector('.theme-btn i');
+        
+        function toggleTheme() {
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            themeBtn.className = next === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // 2. Mobile Menu
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+        function closeMenu() {
+            document.getElementById('navLinks').classList.remove('active');
+        }
+
+        // 3. Typing Effect
+        const textElement = document.getElementById('typingText');
+        const phrases = ["AI Engineer", "Agentic Workflow Expert", "Computer Vision Dev"];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                setTimeout(type, 2000); // Pause at end
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                setTimeout(type, 500);
+            } else {
+                setTimeout(type, isDeleting ? 100 : 200);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', type);
+
+        // 4. Scroll Reveal Animation
+        window.addEventListener('scroll', reveal);
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        reveal(); // Trigger once on load
+    </script>
+</body>
+</html>
